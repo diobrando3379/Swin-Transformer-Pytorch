@@ -28,7 +28,7 @@ mask_Path = Path('/home/Data_Pool/qianlf/ISTD_Dataset/test/test_B')
 label_Path = Path('/home/Data_Pool/qianlf/ISTD_Dataset/test/test_C')
 # ----------------------------------------------------------------------------
 # 设置GPU编号
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
 # ----------------------------------------------------------------------------
 # 加载模型及训练权重
 upscale = 1  # 上采样因子
@@ -39,7 +39,7 @@ model = SwinIR(upscale=upscale, img_size=(height, width),
                 window_size=window_size, img_range=1., depths=[6, 6, 6, 6],
                 embed_dim=60, num_heads=[6, 6, 6, 6], mlp_ratio=2, 
                 upsampler='pixelshuffledirect', in_chans=4, out_chans=3)
-checkpoint = torch.load('./checkpoints/best_model_final.pth', map_location=device)
+checkpoint = torch.load('./checkpoints/best_model.pth', map_location=device)
 model.load_state_dict(checkpoint)
 model.to(device)
 model.eval()
